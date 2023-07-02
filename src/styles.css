@@ -12,6 +12,10 @@ h1 {
   body {
     margin: 2em;
   }
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
   body, input[type="text"], button {
     color: #10314f;
     font-family: Cambria, Georgia, serif;
