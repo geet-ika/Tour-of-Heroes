@@ -1,23 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-dashboard',
-  template: `
-  <h1>Top Heroes</h1>
-  <section>
-    <button></button>
-    <button></button>
-    <button></button>
-    <button></button>
-  </section>
-    <button>
-      dashboard works!
-    </button>
-  `,
-  styleUrls: ['./dashboard.component.css']
+  templateUrl: './dashboard.component.html',
+  styleUrls: [ './dashboard.component.css' ]
 })
-export class DashboardComponent {
-  TopHeroes: Hero[] = [];
-  
+export class DashboardComponent implements OnInit {
+  heroes: Hero[] = [];
+
+  constructor(private heroService: HeroService) { }
+
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+
+  getHeroes(): void {
+    this.heroService.getHeroes().then((heroes:Hero[]) =>
+      this.heroes = heroes.slice(1,5)
+    );
+  }
 }

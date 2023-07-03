@@ -1,53 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css']
 })
-export class HeroesComponent {
-  selectedHero?: Hero;
 
+export class HeroesComponent implements OnInit {
+  selectedHero?: Hero;
+  heroes: Hero[] =[];
+  
+  constructor(private heroService: HeroService, private messageService:MessageService) { }
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+
+  getHeroes(){
+    this.heroService.getHeroes().then((heroes: Hero[]) =>
+    this.heroes = heroes);
+  }
+  
   onSelect(hero: Hero){
     this.selectedHero = hero;
+    this.messageService.add(`Selected Hero id: ${hero.id}`)
   }
-  heroes: Hero[] = [
-    {
-      "name": "Geet",
-      "id" : 1
-  },
-  {
-      "name": "Rishi",
-      "id" : 2
-  },
-  {
-      "name": "Papa",
-      "id" : 3
-  },
-  {
-      "name": "Namya",
-      "id" : 4
-  },
-  {
-      "name": "Siya",
-      "id" : 5
-  },
-  {
-      "name": "Jiya",
-      "id" : 6
-  },
-  {
-      "name": "masi",
-      "id" : 7
-  },
-  {
-      "name": "Masaji",
-      "id" : 8
-  },
-  {
-      "name": "Nani",
-      "id" : 9
-  }
-  ]
 }
